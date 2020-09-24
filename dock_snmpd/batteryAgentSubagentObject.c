@@ -23,7 +23,7 @@ redisContext **con = &c;
 
 void connectToRedis(void)
 {
-    const char *hostname = "myNetwork";
+    const char *hostname = "newNetwork";
     int port = 6739;
     struct timeval timeout = { 1, 50000 }; // 1.5 seconds
     c = redisConnectWithTimeout(hostname, port, timeout);
@@ -65,7 +65,7 @@ void
 init_batteryAgentSubagentObject(void)
 {
     static oid batteryObject_oid[] = { 1, 3, 6, 1, 4, 1, 8072, 2, 4, 1, 1, 1, 0 };
-    
+
     DEBUGMSGTL(("batteryAgentSubagentObject", "Initializing\n"));
 
     netsnmp_register_scalar(
