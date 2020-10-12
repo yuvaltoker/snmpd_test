@@ -28,7 +28,7 @@ void connectToRedis(void)
     struct timeval timeout = { 1, 50000 }; // 1.5 seconds
     c = redisConnectWithTimeout(hostname, port, timeout);
     // didn't connected to redis
-    if(c == NULL || c->err)
+    /*if(c == NULL || c->err)
     {
      	if(c)
 	{
@@ -43,7 +43,7 @@ void connectToRedis(void)
     else
     {
      	DEBUGMSGTL(("batteryObject", "Connection Successful\n"));
-    }
+    }*/
 }
 
 
@@ -66,7 +66,7 @@ init_batteryAgentSubagentObject(void)
 {
     static oid batteryObject_oid[] = { 1, 3, 6, 1, 4, 1, 8072, 2, 4, 1, 1, 1, 0 };
 
-    DEBUGMSGTL(("batteryAgentSubagentObject", "Initializing\n"));
+    //DEBUGMSGTL(("batteryAgentSubagentObject", "Initializing\n"));
 
     netsnmp_register_scalar(
         netsnmp_create_handler_registration("batteryObject", handle_batteryObject,
@@ -127,12 +127,12 @@ void GET_batteryObject_redis()
     redisReply *reply;
     reply = (redisReply*)(redisCommand(c, "GET batteryObjectField"));
 
-    if(reply->type == REDIS_REPLY_ERROR)
-    {
-     	DEBUGSGTL(("batteryObject", "GET error: %s\n", reply->str));
-    }
-    else
-    {
+    //if(reply->type == REDIS_REPLY_ERROR)
+    //{
+    // 	DEBUGSGTL(("batteryObject", "GET error: %s\n", reply->str));
+    //}
+    //else
+    //{
      	if(reply->str == NULL)
         {
             memset(&batteryObject_value, 0, sizeof(batteryObject_value));
@@ -141,7 +141,7 @@ void GET_batteryObject_redis()
 	{
             memmove(batteryObject_value, reply->str, sizeof(batteryObject_value));
         }
-    }
+    //}
     freeReplyObject(reply);
 }
 
@@ -149,10 +149,10 @@ void SET_batteryObject_redis()
 {
     redisReply *reply;
     reply = (redisReply*)(redisCommand(*con, "SET batteryObjectField %d", batteryObject_value));
-    if(reply->type == REDIS_REPLY_ERROR)
-    {
-     	DEBUGSGTL(("batteryObject", "SET error: %s\n", reply->str));
-    }
+    //if(reply->type == REDIS_REPLY_ERROR)
+    //{
+    // 	DEBUGSGTL(("batteryObject", "SET error: %s\n", reply->str));
+    //}
     freeReplyObject(reply);
 }
 

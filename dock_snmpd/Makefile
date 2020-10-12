@@ -7,14 +7,18 @@
 # file.
 #
 
-CC=gcc -std=c99 -lhiredis -levent -lnetsnmp
-
+CC=gcc -std=c99
+LIBS=-levent -lnetsnmp -lhiredis -lnetsnmpagent -lnetsnmpmibs -lnetsnmphelpers
 NETSNMPCONFIG=net-snmp-config
 
-NETSNMPCFLAGS := (shell $(NETSNMPCONFIG) --base-cflags)
+NETSNMPCFLAGS := $(shell $(NETSNMPCONFIG) --base-cflags)
+
+NETSNMPLIBS := $(shell $(NETSNMPCONFIG) --agent-libs)
+
+LIB=$(NETSNMPLIBS)
 
 OBJS1=snmpdemoapp.o
-OBJS2=example-daemon.o nstAgentSubagentObject.o batteryAgentSubagentObject.o hiredis/hiredis.o hiredis/sds.o hiredis/net.o hiredis/read.o
+OBJS2=example-daemon.o nstAgentSubagentObject.o batteryAgentSubagentObject.o hiredis/hiredis.o hiredis/sds.o hiredis/net.o hiredis/read.o hiredis/alloc.o
 OBJS3=asyncapp.o
 TARGETS=example-daemon snmpdemoapp asyncapp
 
@@ -22,7 +26,7 @@ CFLAGS=-I. `net-snmp-config --cflags`
 ANOTHERFLAG=-std=c99
 BUILDLIBS=`net-snmp-config --libs `
 BUILDAGENTLIBS=`net-snmp-config --agent-libs`
-LIBINCLUDES=-L/root/cli-ser-proj/hiredis
+LIBINCLUDES= -L/new_snmpd_test/hiredis 
 
 # shared library flags (assumes gcc)
 DLFLAGS=-fPIC -shared
@@ -35,8 +39,8 @@ snmpdemoapp: $(OBJS1)
 asyncapp: $(OBJS3)
 	$(CC) -o asyncapp $(OBJS3) $(BUILDLIBS)
 
-example-daemon: $(OBJS2)
-	$(CC) -o example-daemon $(OBJS2) $(LIBINCLUDES) $(BUILDAGENTLIBS)
+example-daemon: $(OBJS2) Makefile
+	$(CC) -o example-daemon $(LIBINCLUDES) $(OBJS2) $(LIBS) $(BUILDAGENTLIBS) $(BUILDLIBS) $(LIB)
 
 clean:
 	rm $(OBJS2) $(OBJS2) $(TARGETS)
