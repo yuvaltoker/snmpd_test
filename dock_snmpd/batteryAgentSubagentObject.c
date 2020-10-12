@@ -57,14 +57,16 @@ void shutdownRedis(void)
  * * GET and SET requests to this variable changing it's value as needed.
  */
 
-static int batteryObject_value = 100;
+static int batteryObject_value = 4;
 //static oid batteryObject_oid[] = { 1, 3, 6, 1, 4, 1, 8072, 2, 4, 1, 1, 1, 0 };
 
 /** Initializes the sub_agent_test module */
 void
 init_batteryAgentSubagentObject(void)
 {
-    static oid batteryObject_oid[] = { 1, 3, 6, 1, 4, 1, 8072, 2, 4, 1, 1, 1, 0 };
+//                                                             as in the MY-TUTORIAL-MIB.txt 
+//                                                                         |
+    static oid batteryObject_oid[] = { 1, 3, 6, 1, 4, 1, 8072, 2, 4, 1, 1, 4 };
 
     //DEBUGMSGTL(("batteryAgentSubagentObject", "Initializing\n"));
 

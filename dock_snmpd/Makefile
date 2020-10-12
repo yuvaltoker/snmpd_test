@@ -19,8 +19,10 @@ LIB=$(NETSNMPLIBS)
 
 OBJS1=snmpdemoapp.o
 OBJS2=example-daemon.o nstAgentSubagentObject.o batteryAgentSubagentObject.o hiredis/hiredis.o hiredis/sds.o hiredis/net.o hiredis/read.o hiredis/alloc.o
+#OBJS2=example-daemon.o batteryAgentSubagentObject.o hiredis/hiredis.o hiredis/sds.o hiredis/net.o hiredis/read.o hiredis/alloc.o
 OBJS3=asyncapp.o
-TARGETS=example-daemon snmpdemoapp asyncapp
+#TARGETS=example-daemon snmpdemoapp asyncapp
+TARGETS=example-daemon
 
 CFLAGS=-I. `net-snmp-config --cflags`
 ANOTHERFLAG=-std=c99
@@ -43,7 +45,7 @@ example-daemon: $(OBJS2) Makefile
 	$(CC) -o example-daemon $(LIBINCLUDES) $(OBJS2) $(LIBS) $(BUILDAGENTLIBS) $(BUILDLIBS) $(LIB)
 
 clean:
-	rm $(OBJS2) $(OBJS2) $(TARGETS)
+	rm $(OBJS2)
 
 nstAgentPluginObject.so: nstAgentPluginObject.c Makefile
 	$(CC) $(CFLAGS) $(DLFLAGS) -c -o nstAgentPluginObject.o nstAgentPluginObject.c

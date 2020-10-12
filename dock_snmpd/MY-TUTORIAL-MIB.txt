@@ -34,14 +34,6 @@ IMPORTS
 	MODULE-COMPLIANCE, OBJECT-GROUP       FROM SNMPv2-CONF;
 
 
-
-
-
--- Define typical mib nodes, like where the objects are going to lie.
--- we'll prefix everything in this mib with nst (net snmp tutorial)
-nstMIBObjects     OBJECT IDENTIFIER ::= { netSnmpTutorialMIB 1 }
-nstMIBConformance OBJECT IDENTIFIER ::= { netSnmpTutorialMIB 2 }
-
 --
 -- A brief description and update information about this mib.
 --
@@ -59,6 +51,14 @@ netSnmpTutorialMIB MODULE-IDENTITY
     ::= { netSnmpExamples 4 }
 
 
+
+-- Define typical mib nodes, like where the objects are going to lie.
+-- we'll prefix everything in this mib with nst (net snmp tutorial)
+nstMIBObjects     OBJECT IDENTIFIER ::= { netSnmpTutorialMIB 1 }
+nstMIBConformance OBJECT IDENTIFIER ::= { netSnmpTutorialMIB 2 }
+
+
+
 -- define 3 objects, which will all be implemented in different ways
 -- within the tutorial.
 
@@ -74,7 +74,7 @@ batteryObject OBJECT-TYPE
                            a modem's channel update.
           But first of all, and last of all, THIS IS A NICE DESCRIPTION"
     DEFVAL { 1 }
-    ::= { nstAgentModules 1 }
+    ::= { nstAgentModules 4 }
 
 channelObject OBJECT-TYPE
     SYNTAX      Integer32
@@ -85,7 +85,7 @@ channelObject OBJECT-TYPE
                           a modem's battery update. 
           But first of all, and last of all, THIS IS A NICE DESCRIPTION"
     DEFVAL { 2 }
-    ::= { nstAgentModules 2 }
+    ::= { nstAgentModules 5 }
 
 stringObject OBJECT-TYPE
     SYNTAX      String
@@ -96,14 +96,14 @@ stringObject OBJECT-TYPE
                     actually nothing, but i wanted it here.
           So, first of all, and last of all, THIS IS A NICE DESCRIPTION"
     DEFVAL { 3 }
-    ::= { nstAgentModules 3 }
+    ::= { nstAgentModules 6 }
 
 
 nstAgentTrapObject NOTIFICATION-TYPE
 	STATUS current
         OBJECTS { sysLocation }
 	DESCRIPTION "Just a test notification"
-        ::= { nstAgentModules 4 }
+        ::= { nstAgentModules 7 }
 
 -- END:  Don't forget this!
 END
