@@ -3,7 +3,7 @@
 
 #dock_snmpd part
 docker cp testing_snmpd:/new_snmpd_test/batteryAgentSubagentObject.c dock_snmpd/
-docker cp testing_snmpd:/new_snmpd_test/batteryAgentSubagentObject.c dock_snmpd/
+docker cp testing_snmpd:/new_snmpd_test/batteryAgentSubagentObject.h dock_snmpd/
 docker cp testing_snmpd:/new_snmpd_test/Makefile dock_snmpd/
 docker cp testing_snmpd:/new_snmpd_test/example-daemon.c dock_snmpd/
 docker cp testing_snmpd:/new_snmpd_test/nstAgentSubagentObject.c dock_snmpd/

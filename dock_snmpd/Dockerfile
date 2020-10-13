@@ -12,6 +12,7 @@ COPY ./nstAgentSubagentObject.h /new_snmpd_test/
 COPY ./example-daemon.c /new_snmpd_test/
 ADD ./hiredis /new_snmpd_test/hiredis/
 COPY ./Makefile /new_snmpd_test/
+COPY ./snmpd.conf /etc/snmp/
 RUN chmod +x /new_snmpd_test/instructions.sh
 RUN yum install -y make
 RUN yum install -y nano

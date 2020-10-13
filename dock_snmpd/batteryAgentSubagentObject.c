@@ -24,27 +24,30 @@ redisContext **con = &c;
 
 void connectToRedis(void)
 {
-    const char *hostname = "newNetwork";
-    int port = 6739;
+    const char *hostname = "the_network";
+    int port = 6379;
     struct timeval timeout = { 1, 50000 }; // 1.5 seconds
     c = redisConnectWithTimeout(hostname, port, timeout);
     // didn't connected to redis
-    /*if(c == NULL || c->err)
+    if(c == NULL || c->err)
     {
      	if(c)
 	{
-            DEBUGMSGTL(("batteryObject", "Connection error: %s\n", c->errstr));
+            snmp_log(LOG_ERR, "connection error: %s\n", c->errstr);
+            //DEBUGMSGTL(("batteryObject", "Connection error: %s\n", c->errstr));
             redisFree(c);
         }
         else
         {
-            DEBUGMSGTL(("batteryObject", "Connection error: can't allocate redis context\n"));
+            snmp_log(LOG_ERR, "connection error: can't allocate redis context\n");
+            //DEBUGMSGTL(("batteryObject", "Connection error: can't allocate redis context\n"));
         }
     }
     else
     {
-     	DEBUGMSGTL(("batteryObject", "Connection Successful\n"));
-    }*/
+        snmp_log(LOG_ERR, "connection successful\n");
+     	//DEBUGMSGTL(("batteryObject", "Connection Successful\n"));
+    }
 }
 
 
@@ -154,12 +157,13 @@ void GET_batteryObject_redis()
     redisReply *reply;
     reply = (redisReply*)(redisCommand(c, "GET batteryObjectField"));
 
-    //if(reply->type == REDIS_REPLY_ERROR)
-    //{
-    // 	DEBUGSGTL(("batteryObject", "GET error: %s\n", reply->str));
-    //}
-    //else
-    //{
+    if(reply->type == REDIS_REPLY_ERROR)
+    {
+     	snmp_log(LOG_ERR, "GET error: %s\n", reply->str);
+        //DEBUGSGTL(("batteryObject", "GET error: %s\n", reply->str));
+    }
+    else
+    {
      	if(reply->str == NULL)
         {
             memset(&batteryObject_value, 0, sizeof(batteryObject_value));
@@ -168,7 +172,7 @@ void GET_batteryObject_redis()
 	{
             memmove(batteryObject_value, reply->str, sizeof(batteryObject_value));
         }
-    //}
+    }
     freeReplyObject(reply);
 }
 
@@ -176,12 +180,14 @@ void SET_batteryObject_redis()
 {
     snmp_log(LOG_ERR, "first in the SET function\n");
     redisReply *reply;
+    //system("echo 'hello'");
     reply = (redisReply*)(redisCommand(*con, "SET batteryObjectField %d", batteryObject_value));
     snmp_log(LOG_ERR, "after the redis command\n");
-    //if(reply->type == REDIS_REPLY_ERROR)
-    //{
-    // 	DEBUGSGTL(("batteryObject", "SET error: %s\n", reply->str));
-    //}
+    if(reply->type == REDIS_REPLY_ERROR)
+    {
+        snmp_log(LOG_ERR, "SET error: %s\n", reply->str);
+     	//DEBUGSGTL(("batteryObject", "SET error: %s\n", reply->str));
+    }
     freeReplyObject(reply);
     snmp_log(LOG_ERR, "after the free command\n");
 }
