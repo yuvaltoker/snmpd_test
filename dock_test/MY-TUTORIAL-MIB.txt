@@ -34,7 +34,6 @@ IMPORTS
 	MODULE-COMPLIANCE, OBJECT-GROUP       FROM SNMPv2-CONF;
 
 
-
 --
 -- A brief description and update information about this mib.
 --
@@ -50,6 +49,7 @@ netSnmpTutorialMIB MODULE-IDENTITY
     DESCRIPTION  "A simple mib for demonstration purposes.
                  "
     ::= { netSnmpExamples 4 }
+
 
 
 -- Define typical mib nodes, like where the objects are going to lie.
