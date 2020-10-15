@@ -1,7 +1,6 @@
 FROM polinux/snmpd
 RUN mkdir new_snmpd_test
 RUN mkdir new_snmpd_test/hiredis
-#RUN mkdir redis-stable
 COPY ./instructions.sh /new_snmpd_test/
 COPY ./MY-TUTORIAL-MIB.txt /usr/share/snmp/mibs
 COPY ./NET-SNMP-TUTORIAL-MIB.txt /usr/share/snmp/mibs
@@ -12,7 +11,6 @@ COPY ./nstAgentSubagentObject.c /new_snmpd_test/
 COPY ./nstAgentSubagentObject.h /new_snmpd_test/
 COPY ./example-daemon.c /new_snmpd_test/
 ADD ./hiredis /new_snmpd_test/hiredis/
-#ADD ./redis-stable /redis-stable
 COPY ./Makefile /new_snmpd_test/
 COPY ./snmpd.conf /etc/snmp/
 RUN chmod +x /new_snmpd_test/instructions.sh
@@ -25,8 +23,5 @@ RUN yum install -y libevent-devel
 RUN yum install -y http://repo.okay.com.mx/centos/7/x86_64/release/okay-release-1-1.noarch.rpm
 RUN yum install -y hiredis
 RUN yum install -y hiredis-devel
-##RUM yum install -y epel-release 
-##RUN yum -y update 
-##RUN install -y redis
 ENTRYPOINT ["bash","/new_snmpd_test/instructions.sh"]
 
