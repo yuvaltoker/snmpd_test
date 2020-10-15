@@ -49,8 +49,8 @@ extern int redisContextUpdateCommandTimeout(redisContext *c, const struct timeva
 
 static redisContextFuncs redisContextDefaultFuncs = {
     .free_privctx = NULL,
-    //.async_read = redisAsyncRead,
-    //.async_write = redisAsyncWrite,
+    .async_read = redisAsyncRead,
+    .async_write = redisAsyncWrite,
     .read = redisNetRead,
     .write = redisNetWrite
 };

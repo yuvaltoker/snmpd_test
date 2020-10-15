@@ -18,7 +18,7 @@ NETSNMPLIBS := $(shell $(NETSNMPCONFIG) --agent-libs)
 LIB=$(NETSNMPLIBS)
 
 OBJS1=snmpdemoapp.o
-OBJS2=example-daemon.o nstAgentSubagentObject.o batteryAgentSubagentObject.o hiredis/hiredis.o hiredis/sds.o hiredis/net.o hiredis/read.o hiredis/alloc.o
+OBJS2=example-daemon.o nstAgentSubagentObject.o batteryAgentSubagentObject.o hiredis/hiredis.o hiredis/async.o hiredis/sds.o hiredis/net.o hiredis/read.o hiredis/alloc.o
 #OBJS2=example-daemon.o batteryAgentSubagentObject.o hiredis/hiredis.o hiredis/sds.o hiredis/net.o hiredis/read.o hiredis/alloc.o
 OBJS3=asyncapp.o
 #TARGETS=example-daemon snmpdemoapp asyncapp

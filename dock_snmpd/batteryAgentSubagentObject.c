@@ -24,11 +24,12 @@ redisContext **con = &c;
 
 void connectToRedis(void)
 {
-    const char *hostname = "the_network";
+    const char *hostname = "redis_db"; // should be the name of the container where redis at
     int port = 6379;
     struct timeval timeout = { 1, 50000 }; // 1.5 seconds
     c = redisConnectWithTimeout(hostname, port, timeout);
     // didn't connected to redis
+    snmp_log(LOG_ERR, "connecting to redis...\n");
     if(c == NULL || c->err)
     {
      	if(c)
@@ -45,7 +46,7 @@ void connectToRedis(void)
     }
     else
     {
-        snmp_log(LOG_ERR, "connection successful\n");
+        snmp_log(LOG_ERR, "redis connection successful\n");
      	//DEBUGMSGTL(("batteryObject", "Connection Successful\n"));
     }
 }

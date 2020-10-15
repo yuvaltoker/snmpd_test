@@ -40,6 +40,9 @@ main (int argc, char **argv) {
 
   /* initialize the agent library */
   init_agent("example-daemon");
+  
+  /* redis connection */
+  connectToRedis();
 
   /* initialize mib code here */
 
