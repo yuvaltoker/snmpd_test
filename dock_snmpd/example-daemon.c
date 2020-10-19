@@ -3,7 +3,9 @@
 #include <net-snmp/agent/net-snmp-agent-includes.h>
 #include <signal.h>
 
-#include "batteryAgentSubagentObject.h"
+
+// Including every subagent file you've got
+#include "subagents.h"
 #include "nstAgentSubagentObject.h"
 
 static int keep_running;
@@ -40,15 +42,16 @@ main (int argc, char **argv) {
 
   /* initialize the agent library */
   init_agent("example-daemon");
-  
-  /* redis connection */
+
+  /* redis connection @batteryAgentSubagentObject.c */
   connectToRedis();
 
   /* initialize mib code here */
 
-  /* mib code: init_nstAgentSubagentObject from nstAgentSubagentObject.C */
-  init_nstAgentSubagentObject();
-  init_batteryAgentSubagentObject();
+  /* mib code: calling the init_ functions */
+  init_nstAgentSubagentObject();     // @nstAgentSubagentObject.c
+  init_subagents(); // @subagents.c
+
   /* initialize vacm/usm access control  */
   if (!agentx_subagent) {
       init_vacm_vars();
