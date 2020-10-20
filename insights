@@ -1,0 +1,22 @@
+
+Deep insights of the A-NET-SNMP project (Awesome Net Simple Networking Managment Protocol):
+
+1. Project will be divided into containers, and sometimes even two parts of the same idea will be divided into two or more containers.
+   For example, in this project there is the ra, and the modem. At first I had thought that the modem, simple program which contacts redis for updates
+   of it's situation, will be at the same container as the redis database, and on top of that, the snmpd will run in the same container.
+   Later I understood that containers can communicate with each other through the network I tell them to connect on the running command i give them. 
+   Thus, the right solution for me in this case, is to run those containrs: - container for the ra program
+                                                                            - container for the modem program
+                                                                            - container for the redis database
+                                                                            - container for the snmpd && snmptrapd
+
+2. Makefile and libraries. It is important to understand how makefile works regarding to c/c++, it is important to understand flags of commands in the
+   makefile and in the terminal itself (simple google search or "blabla -h"/"blabla --help"). In case of usage of libraries I acknowledged the "-l" 
+   flag for library. For example, I've got the library hiredis, so in that case at the run command of the program in the makefile, after the list of 
+   objects files, we will write "-lhiredis". By the way, the libraries should be @/usr/lib/x86_64-linux-gnu/ in my linux and in centos look up in the
+   interet. And now lets get to the point of this section, it's important blah blah blah, and it's important blah blah blah, but in order to use those
+   libraries, ---YOU SHOULD INSTALL THEM--- , or be me and eat shit for 3 weeks... or don't. Anyway, know your system, know your files and where they
+   are, know where your libraries are downloaded and installed to, and if you're not sure in any of them you can ask google. or whoever you find who
+   can answer your question with "ask google..." and sometimes even smile or cruel laughing face.
+
+3. 
